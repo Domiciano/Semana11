@@ -1,7 +1,7 @@
 package services;
 
-import model.Division;
-import model.Respuesta;
+import dto.Division;
+import dto.Respuesta;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.*;

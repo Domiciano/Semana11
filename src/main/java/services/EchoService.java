@@ -14,10 +14,6 @@ public class EchoService {
     @GET
     @Path("index")
     public String index(){
-
-        MySQLConnection connection = new MySQLConnection();
-        connection.insertTest();
-
         return "echo get";
     }
 

@@ -1,9 +1,6 @@
 package db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class MySQLConnection {
 
@@ -26,7 +23,7 @@ public class MySQLConnection {
         }
     }
 
-    private void disconnect(){
+    public void disconnect(){
         try {
             connection.close();
         } catch (SQLException e) {
@@ -34,15 +31,51 @@ public class MySQLConnection {
         }
     }
 
-    public void insertTest() {
+    public boolean createDatabase(){
+        boolean success = false;
         try {
             connect();
             Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO materias(id, nombre, NRC) VALUES ('omega','Programacion en red','A8924')");
+            statement.execute("CREATE TABLE IF NOT EXISTS profesores(id INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(100), facultad VARCHAR(100))");
+            statement.execute("CREATE TABLE IF NOT EXISTS cursos(id INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(100), programa VARCHAR(100), profesorID INT, " +
+                                                            "FOREIGN KEY (profesorID) REFERENCES profesores(id))");
+            statement.execute("CREATE TABLE IF NOT EXISTS estudiantes(id INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(100), codigo VARCHAR(100))");
+            statement.execute("CREATE TABLE IF NOT EXISTS estudiantes_cursos(id INT PRIMARY KEY AUTO_INCREMENT, estudianteID INT, profesorID INT, " +
+                                                                    "FOREIGN KEY (estudianteID) REFERENCES estudiantes(id), " +
+                                                                    "FOREIGN KEY (profesorID) REFERENCES profesores(id))");
+            success = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            success = false;
+        }finally {
+            disconnect();
+        }
+        return success;
+    }
+
+    //Ordenes
+    public void executeSQL(String sql){
+        try {
+            connect();
+            Statement statement = connection.createStatement();
+            statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
             disconnect();
         }
+    }
+
+    //Query
+    public ResultSet query(String sql) {
+        ResultSet output = null;
+        try {
+            connect();
+            Statement statement = connection.createStatement();
+            output = statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return output;
     }
 }
