@@ -23,6 +23,10 @@ public class ApplicationConfig extends Application {
         resources.add(DatabaseServices.class);
         resources.add(ProfesorServices.class);
         resources.add(CursoServices.class);
+
+        System.out.println("Init pool de conexiones");
+
+
         return resources;
     }
 }

@@ -60,8 +60,25 @@ public class ProfesorProvider {
 
 
 
-    public void getAllProfesores() {
-
+    public ArrayList<ProfesorDTO> getAllProfesores() {
+        ArrayList<ProfesorDTO> output = new ArrayList<>();
+        MySQLConnection connection = new MySQLConnection();
+        try {
+            String sql = "SELECT id, nombre, facultad FROM profesores";
+            ResultSet resultSet = connection.query(sql);
+            while (resultSet.next()) {
+                output.add(new ProfesorDTO(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        null
+                ));
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        connection.disconnect();
+        return output;
     }
 
     //Proveer las acciones
@@ -77,8 +94,10 @@ public class ProfesorProvider {
 
     }
 
-    public void deleteProfesor() {
-
+    public boolean deleteProfesor(String id) {
+        MySQLConnection connection = new MySQLConnection();
+        String sql = "DELETE FROM profesores WHERE id="+id;
+        return connection.executeSQL(sql);
     }
 
     public Profesor mapFromDTO(ProfesorDTO dto) {

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 @Stateless
 public class CursoServices {
 
+    static String alfa = "Hola a todos";
+
     @POST
     @Path("create")
     @Consumes("application/json")

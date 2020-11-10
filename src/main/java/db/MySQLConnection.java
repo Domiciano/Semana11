@@ -40,9 +40,9 @@ public class MySQLConnection {
             statement.execute("CREATE TABLE IF NOT EXISTS cursos(id INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(100), programa VARCHAR(100), profesorID INT, " +
                                                             "FOREIGN KEY (profesorID) REFERENCES profesores(id))");
             statement.execute("CREATE TABLE IF NOT EXISTS estudiantes(id INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(100), codigo VARCHAR(100))");
-            statement.execute("CREATE TABLE IF NOT EXISTS estudiantes_cursos(id INT PRIMARY KEY AUTO_INCREMENT, estudianteID INT, profesorID INT, " +
+            statement.execute("CREATE TABLE IF NOT EXISTS estudiantes_cursos(id INT PRIMARY KEY AUTO_INCREMENT, estudianteID INT, cursoID INT, " +
                                                                     "FOREIGN KEY (estudianteID) REFERENCES estudiantes(id), " +
-                                                                    "FOREIGN KEY (profesorID) REFERENCES profesores(id))");
+                                                                    "FOREIGN KEY (cursoID) REFERENCES cursos(id))");
             success = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,16 +54,20 @@ public class MySQLConnection {
     }
 
     //Ordenes
-    public void executeSQL(String sql){
+    public boolean executeSQL(String sql){
+        boolean success = false;
         try {
             connect();
             Statement statement = connection.createStatement();
             statement.execute(sql);
+            success = true;
         } catch (SQLException e) {
             e.printStackTrace();
+            success = false;
         }finally {
             disconnect();
         }
+        return success;
     }
 
     //Query

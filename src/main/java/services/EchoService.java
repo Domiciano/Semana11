@@ -4,6 +4,7 @@ import db.MySQLConnection;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -18,9 +19,13 @@ public class EchoService {
     }
 
     @POST
-    @Path("index")
-    public String indexPost(){
-        return "echo post";
+    @Path("filetest")
+    public String indexPost(@HeaderParam("Content-Type") String content, @HeaderParam("Authorization") String auth, String request){
+        String alfa = "";
+        alfa+="<p>"+content+"</p>";
+        alfa+="<p>"+auth+"</p>";
+        alfa+="<p>"+request+"</p>";
+        return alfa;
     }
 
 }
