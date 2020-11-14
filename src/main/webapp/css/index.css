@@ -1,0 +1,41 @@
+#registroContainer{
+    background: #EEEEFF;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.inputdata{
+    width: 80%;
+}
+
+#registroContainer *{
+    margin: 5px 0px 5px 0px;
+}
+
+#logo{
+    width: 180px;
+}
+
+#registroTitle{
+    color: blueviolet;
+}
+
+.profesorComponent{
+    background: lightsteelblue;
+    padding: 20px;
+    width: 400px;
+    position: relative;
+    margin: 10px auto;
+}
+
+.delBtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+}

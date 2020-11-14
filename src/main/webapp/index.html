@@ -3,13 +3,24 @@
 
     <head>
         <title>Semana 13</title>
+        <link rel="stylesheet" href="css/index.css"/>
+        <meta charset="UTF-8">
     </head>
 
     <body>
 
-        <button id="downBtn">Descargar</button>
+        <div id="registroContainer">
+            <img id="logo" src="images/logo.png">
+            <h3 id="registroTitle">Regístrate</h3>
+            <input id="nombre" class="inputdata" type="text" placeholder="Nombre del profesor">
+            <input id="facultad" class="inputdata" type="text" placeholder="Facultad">
+            <button id="regBtn">Registrar</button>
+        </div>
+
+        <div id="profesoresContainer"></div>
 
     </body>
 
 </html>
+<script src="js/profesorView.js"></script>
 <script src="js/index.js"></script>
